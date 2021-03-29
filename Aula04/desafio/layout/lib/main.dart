@@ -16,8 +16,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String s;
-
+  final valorCotacao = TextEditingController();
+  String cotacao = "0.0";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,8 +35,8 @@ class _HomeState extends State<Home> {
                 height: 15.0,
               ),
               TextField(
+                controller: valorCotacao,
                 onSubmitted: (text) {
-                  s = text;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -80,7 +80,8 @@ class _HomeState extends State<Home> {
                   child: Text(
                     ' Cotação',
                     style: TextStyle(color: Colors.white),
-                  ))
+                  )),
+              Text("Valor Cotação: $cotacao")
             ],
           ),
         ));
