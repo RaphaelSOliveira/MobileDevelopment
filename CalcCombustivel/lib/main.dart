@@ -13,12 +13,21 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+String escolheCombustivel(double calculoGasEt) {
+  if (calculoGasEt < 0.7) {
+    return "Escolha o Etanol!";
+  } else {
+    return "Escolha a Gasolina!";
+  }
+}
+
 class _HomeState extends State<Home> {
   final valorGasolina = TextEditingController();
   final valorEtanol = TextEditingController();
   double gasolina = 0.0;
   double etanol = 0.0;
   double calculoGasEt = 0.0;
+  String resultado = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,6 +84,7 @@ class _HomeState extends State<Home> {
                           final double valorEtan =
                               double.parse(valorEtanol.text);
                           calculoGasEt = valorEtan / valorGasol;
+                          resultado = escolheCombustivel(calculoGasEt);
                         });
                       },
                       style: ButtonStyle(
@@ -95,15 +105,12 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text("O resultado é: $calculoGasEt",
+                  Text("$resultado",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                      "Se o valor for inferior a 0.7 o Etanol é a melhor opção. Se superior então escolha a Gasolina!",
-                      style: TextStyle(fontSize: 20))
                 ],
               ),
             )));

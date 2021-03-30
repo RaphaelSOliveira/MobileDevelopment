@@ -13,12 +13,33 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+String calculoImc(double calculoIMC) {
+  if (calculoIMC < 16) {
+    return "Magreza Grave";
+  } else if (calculoIMC >= 16 && calculoIMC < 17) {
+    return "Magreza Moderada";
+  } else if (calculoIMC >= 17 && calculoIMC < 18.5) {
+    return "Magreza Leve";
+  } else if (calculoIMC >= 18.5 && calculoIMC < 25) {
+    return "Saudável";
+  } else if (calculoIMC >= 25 && calculoIMC < 30) {
+    return "Sobrepeso";
+  } else if (calculoIMC >= 30 && calculoIMC < 35) {
+    return "Obesidade Grau I";
+  } else if (calculoIMC >= 35 && calculoIMC < 40) {
+    return "Obesidade Grau II (severa)";
+  } else {
+    return "Obesidade Grau III (mórbida)";
+  }
+}
+
 class _HomeState extends State<Home> {
   final valorPeso = TextEditingController();
   final valorAltura = TextEditingController();
   double peso = 0.0;
   double altura = 0.0;
   double calculoIMC = 0.0;
+  String classificacao = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +95,7 @@ class _HomeState extends State<Home> {
                           final double valorAlt =
                               double.parse(valorAltura.text);
                           calculoIMC = valorPes / (valorAlt * valorAlt);
+                          classificacao = calculoImc(calculoIMC);
                         });
                       },
                       style: ButtonStyle(
@@ -94,14 +116,12 @@ class _HomeState extends State<Home> {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text("O resultado é: $calculoIMC",
+                  Text("Classificação: $classificacao",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text("Consultar a tabela para saber a sua categoria",
-                      style: TextStyle(fontSize: 20))
                 ],
               ),
             )));
